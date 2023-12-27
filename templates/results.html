@@ -12,14 +12,32 @@
         -o-background-size: cover;
         background-size: cover;
     }
-
+ 
+    #temp-query-holder {
+        font-size: large;
+        color: red;
+        text-decoration: underline; 
+        margin-bottom: 10px;  
+      }
+      
+      #temp-query-holder span {
+        font-size: large;
+        color: yellow;
+        padding: 10px;
+        background-color: purple;
+        border-radius: 5px;
+        display: inline-block; 
+        margin-top: 10px;  
+      }
+      
+      
 </style>
     <title>Yunus's OPC UA Web Client</title>
 </head>
 <body>
     <h1>Gotten From the OPC UA Server: </h1>
     <hr>
-    <p id="search_results">Search Result:</p>
+    <h3 id="search_results">Search Result:</h3>
     <p id='temp-query-holder'>{{find_this}}</p><br>
 
     <h3>ALL Nodes:</h3>
@@ -28,13 +46,17 @@
     <script>
         const container = document.querySelector('#container');
         const bulkData = container.textContent;  
-        const bulkJSON = JSON.stringify(bulkData);  
+        let bulkJSON = JSON.stringify(bulkData);
+        const startIndexBulk = bulkJSON.indexOf("NamespaceUri");
+        const endIndexBulk = bulkJSON.indexOf("NamingRule");
+
+        bulkJSON = bulkJSON.substring(startIndexBulk,endIndexBulk)  
         container.innerHTML = bulkJSON;
 
         const findThisNode = document.querySelector('#temp-query-holder');
-        const startIndex = bulkJSON.indexOf(findThisNode.textContent);
+        const startIndex = bulkJSON.indexOf(findThisNode.textContent)+findThisNode.textContent.length;
         const endIndex = bulkJSON.indexOf("'", startIndex);
-        findThisNode.textContent = bulkJSON.substring(startIndex, endIndex);  
+        findThisNode.innerHTML += '<br><span>'+bulkJSON.substring(startIndex+1, endIndex)+'</span>';  
     </script>
 </body>
 </html>
