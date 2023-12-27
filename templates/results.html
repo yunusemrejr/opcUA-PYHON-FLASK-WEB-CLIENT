@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head><style>
+
+    body{
+        font-family:arial;
+         color:navy;
+        text-align:center;
+        background: url({{ url_for('static', filename='images/bg.png') }}) no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+</style>
+    <title>Yunus's OPC UA Web Client</title>
+</head>
+<body>
+    <h1>Gotten From the OPC UA Server: </h1>
+    <hr>
+    <p id="search_results">Search Result:</p>
+    <p id='temp-query-holder'>{{find_this}}</p><br>
+
+    <h3>ALL Nodes:</h3>
+    <p id="container">{{bulk_data}}</p>
+
+    <script>
+        const container = document.querySelector('#container');
+        const bulkData = container.textContent;  
+        const bulkJSON = JSON.stringify(bulkData);  
+        container.innerHTML = bulkJSON;
+
+        const findThisNode = document.querySelector('#temp-query-holder');
+        const startIndex = bulkJSON.indexOf(findThisNode.textContent);
+        const endIndex = bulkJSON.indexOf("'", startIndex);
+        findThisNode.textContent = bulkJSON.substring(startIndex, endIndex);  
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head><style>
+
+    body{
+        font-family:arial;
+         color:navy;
+        text-align:center;
+        background: url({{ url_for('static', filename='images/bg.png') }}) no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+</style>
+    <title>Yunus's OPC UA Web Client</title>
+</head>
+<body>
+    <h1>Welcome to Yunus's OPC UA Web Client</h1><hr>
+
+    <form method="POST" action="/process_form">
+        <label for="server_URL">server URL:</label>
+        <input type="text" id="server_URL" name="server_URL"><br><br>
+
+        <label for="content_find">find node:</label>
+        <input type="text" id="content_find" name="content_find"><br><br>
+
+
+        <input type="submit" value="Find UA Node and List all Nodes">
+    </form>
+</body>
+</html>
